@@ -2,18 +2,18 @@ import { msgModel } from "./models/MessagesModel.js";
 
 export default class MessagesDao {
 
-  async createMsg(msg) {
+  async getAll() {
     try {
-      const response = await msgModel.create(msg);
+      const response = await msgModel.find({});
       return response;
     } catch (error) {
       console.log(error);
     }
   }
 
-  async getAll() {
+  async createMsg(msg) {
     try {
-      const response = await msgModel.find({});
+      const response = await msgModel.create(msg);
       return response;
     } catch (error) {
       console.log(error);
@@ -40,12 +40,21 @@ export default class MessagesDao {
 
   async deleteMsg(id) {
     try {
-      const response = await ProductsModel.findByIdAndDelete (id);
+      const response = await msgModel.findByIdAndDelete (id);
       return response;
     } catch (error) {
       console.log (error);
     }
   }
 
+  async deleteMsgs() {
+    try {
+      const response = await msgModel.deleteMany ();
+    } catch (error) {
+      
+    }
+  }
+
 };
+
 

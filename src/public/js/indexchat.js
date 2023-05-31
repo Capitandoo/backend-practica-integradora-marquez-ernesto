@@ -26,18 +26,16 @@ const actions = document.getElementById("actions");
 btn.addEventListener("click", () => {
   socketClient.emit("chat:message", {
     username,
-    message: message.value,
+    message: message.value
   });
   message.value = "";
 });
 
 socketClient.on("messages", (data) => {
   actions.innerHTML = "";
-  const chatRender = data
-    .map((msg) => {
+  const chatRender = data.map((msg) => {
       return `<p><strong>${msg.username}: ${msg.message}<strong></p>`;
-    })
-    .join(" ");
+    }).join(" ");
   output.innerHTML = chatRender;
 });
 

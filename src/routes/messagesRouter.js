@@ -9,10 +9,10 @@ import {
 
 const router = Router();
 
-router.get("/", getAllController);
-router.get("/:id", getByIdController);
-router.post("/", createController);
-router.put("/:id", updateController);
-router.delete("/:id", deleteController);
+router.get("/messages", getAllController);
+router.post("/createmsg", createController);
+router.get('/', (req, res) => {
+  res.render('chat');
+});
 
 export default router;

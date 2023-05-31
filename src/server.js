@@ -5,6 +5,7 @@ import handlebars from "express-handlebars";
 import { errorHandler } from "./middlewares/errorHandler.js";
 import "./db/conexion.js";
 import chatRouter from "./routes/chatRouter.js";
+import messagesRouter from "./routes/messagesRouter.js";
 import productsRouter from "./routes/productsRouter.js";
 import cartRouter from "./routes/cartRouter.js";
 import viewsRouter from "./routes/viewsRouter.js";
@@ -13,7 +14,7 @@ import MessagesDao from "./daos/mongodb/MessagesDao.js";
 import MessageManager from "./daos/filesystem/MessagesDao.js";
 
 const app = express();
-const port = 9000;
+const port = 8080;
 const httpServer = app.listen(port, () => {
   console.log(`Server iniciado en el puerto ${port}`);
 });
@@ -33,6 +34,7 @@ app.set("views", __dirname + "/views");
 app.use("/products", productsRouter);
 app.use("/cart", cartRouter);
 app.use("/chat", chatRouter);
+app.use("/chatmdb", messagesRouter);
 app.use("/", viewsRouter);
 
 socketServer.on("connection", (socket) => {
@@ -61,8 +63,8 @@ socketServer.on("connection", (socket) => {
   });
 
   socket.on("chat:message", async (msg) => {
-    await messageDao.createMsg(msg);
-    socketServer.emit("messages", await messageDao.getAll());
+    await messagesDao.createMsg(msg);
+    socketServer.emit("messages", await messagesDao.getAll());
   });
 
   socket.on("newUser", (user) => {
