@@ -1,51 +1,47 @@
-import CartsDaoMongoDB from "../daos/mongodb/cartsDao.js";
-import ProductsDaoMongoDB from "../daos/mongodb/productsDao.js";
-const cartDao = new CartsDaoMongoDB();
-const prodDao = new ProductsDaoMongoDB();
+import CartManager from "../daos/mongodb/CartDao.js";
+import ProductDao from "../daos/mongodb/ProductDao.js";
 
-export const getCartController = async (req, res, next) =>{
+
+const cartDao = new CartManager ();
+const prodDao = new ProductDao ();
+
+export const getCartService = async (cid) =>{
     try {
-        const {id} = req.params;
-        const cart = await cartDao.getCart(id);
-        res.json(cart);
+        const cart = await cartDao.getCartById (cid);
+        if (!cart) throw new Error("Carrito no encontrado");
+        else return cart;
     } catch (error) {
-        next(error)
+        console.log (error);
     };
 };
-export const createCartController = async (req, res, next) =>{
+export const createCartService = async (product) =>{
     try {
-        const newCart = await cartDao.createCart()
-        res.json(newCart)
+        const newCart = await cartDao.addCart(product);
+        if (!newCart) throw new Error ("No se pudo agregar al carrito");
+        else return newCart;
     } catch (error) {
-        next(error)
+        console.log(error);
     };
 };
-export const addProductToCartController = async (req, res, next) =>{
+export const addProductToCartService = async (cid, pid) =>{
     try {
-        const cartId = req.params.cartId;
-        const prodId = req.params.prodId;
-        const existenceValidator = await prodDao.getProductById(prodId)
-        if(existenceValidator){
-            const prodAdded = await cartDao.addProductToCart(prodId, cartId);
-            res.json(prodAdded);
-        } else{
-            res.status(404).json('the product you are trying to add does not exist')
-        }
+        const consultacarrito = await cartDao.getCartById (cid);
+        if (!consultacarrito) throw new Error ("El carrito no existe");
+        const consultaproducto = await prodDao.getProductById (pid);
+        if(!consultaproducto) throw new Error ("Producto no encontrado");
+        const prodAdded = await cartDao.addProductToCart(cid, pid);
+        return prodAdded;        
     } catch (error) {
-        next(error)
+        console.log (error);
     };
 };
-export const deleteProductToCart = async (req, res, next) =>{
+
+export const deleteProductToCartService = async (cid, pid) =>{
     try {
-        const cartId = req.params.cartId;
-        const prodId = req.params.prodId;
-        const prodDelete = await cartDao.deleteProductToCart(prodId, cartId)
-        if(prodDelete){
-            res.json(prodDelete);
-        } else{
-            res.status(404).json('error: the product you are trying to remove does not exist')
-        }
+        const prodDelete = await cartDao.deleteProductToCart(cid, pid)
+        if(!prodDelete) throw new Error ("El carrito no fue encontrado");
+        return prodDelete;
     } catch (error) {
-        next(error)
-    }
+        console.log (error);
+    };
 };

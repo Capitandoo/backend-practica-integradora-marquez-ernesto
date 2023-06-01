@@ -21,7 +21,7 @@ export default class CartManager {
     }
 }
   
-  async addCart (product) {
+  async addCart (products) {
     try{
         const products = await this.getCarts ();
         const id = products.length > 0 ? products[products.length - 1].id : 0;

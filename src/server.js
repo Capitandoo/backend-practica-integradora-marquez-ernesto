@@ -12,6 +12,7 @@ import viewsRouter from "./routes/viewsRouter.js";
 import ProductManager from "./daos/filesystem/ProductDao.js";
 import MessagesDao from "./daos/mongodb/MessagesDao.js";
 import MessageManager from "./daos/filesystem/MessagesDao.js";
+import cartRouterMDB from "./routes/cartRouterMDB.js";
 
 const app = express();
 const port = 8080;
@@ -36,6 +37,7 @@ app.use("/cart", cartRouter);
 app.use("/chat", chatRouter);
 app.use("/chatmdb", messagesRouter);
 app.use("/", viewsRouter);
+app.use("/cartmdb", cartRouterMDB);
 
 socketServer.on("connection", (socket) => {
   console.log("Usuario conectado", socket.id);
