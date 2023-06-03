@@ -1,6 +1,11 @@
 import ProductDao from "../daos/mongodb/ProductDao.js";
+import ProductManager from "../daos/filesystem/ProductDao.js";
+import { pathProducts } from '../path.js';
 
 const prodDao = new ProductDao();
+//const prodDao = new ProductManager (pathProducts);
+
+
 
 export const getAllService = async () => {
   try {

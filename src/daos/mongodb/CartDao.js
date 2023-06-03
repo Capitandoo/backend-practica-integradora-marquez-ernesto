@@ -1,7 +1,7 @@
 import { CartsModel } from "./models/CartsModel.js";
 import { ProductsModel } from "./models/ProductModel.js";
 
-export default class CartManager {
+export default class CartDao {
 
   async getCarts() {
     try {

@@ -52,7 +52,7 @@ btnmostrar.addEventListener("click", (e) => {
 socketClient.on("arrayProductsAdd", (productAddNew) => {
   const productoRender = productAddNew
     .map((prod) => {
-      return `<p> ID: ${prod.id} - TITULO: ${prod.title} - DESCRIPTION: ${prod.description} - PRICE: ${prod.price} - THUMBNAIL: ${prod.thumbnail} - CODE: ${prod.code} - STOCK: ${prod.stock} - STATUS: ${prod.status} - CATEGORY:${prod.category} </p>`;
+      return `<p> ID: ${Number(prod._id)} - TITULO: ${prod.title} - DESCRIPTION: ${prod.description} - PRICE: ${prod.price} - THUMBNAIL: ${prod.thumbnail} - CODE: ${prod.code} - STOCK: ${prod.stock} - STATUS: ${prod.status} - CATEGORY:${prod.category} </p>`;
     })
     .join("");
   productos.innerHTML = productoRender;
@@ -61,7 +61,7 @@ socketClient.on("arrayProductsAdd", (productAddNew) => {
 socketClient.on("arrayProductsErase", (productAddNew) => {
   const productoRender = productAddNew
     .map((prod) => {
-      return `<p> ID: ${prod.id} - TITULO: ${prod.title} - DESCRIPTION: ${prod.description} - PRICE: ${prod.price} - THUMBNAIL: ${prod.thumbnail} - CODE: ${prod.code} - STOCK: ${prod.stock} - STATUS: ${prod.status} - CATEGORY:${prod.category} </p>`;
+      return `<p> ID: ${Number(prod._id)} - TITULO: ${prod.title} - DESCRIPTION: ${prod.description} - PRICE: ${prod.price} - THUMBNAIL: ${prod.thumbnail} - CODE: ${prod.code} - STOCK: ${prod.stock} - STATUS: ${prod.status} - CATEGORY:${prod.category} </p>`;
     })
     .join("");
   productos.innerHTML = productoRender;
@@ -70,7 +70,7 @@ socketClient.on("arrayProductsErase", (productAddNew) => {
 socketClient.on("mostrar", (lista) => {
   const productoRender = lista
     .map((prod) => {
-      return `<p> ID: ${prod.id} - TITULO: ${prod.title} - DESCRIPTION: ${prod.description} - PRICE: ${prod.price} - THUMBNAIL: ${prod.thumbnail} - CODE: ${prod.code} - STOCK: ${prod.stock} - STATUS: ${prod.status} - CATEGORY:${prod.category} </p>`;
+      return `<p> ID: ${prod._id} - TITULO: ${prod.title} - DESCRIPTION: ${prod.description} - PRICE: ${prod.price} - THUMBNAIL: ${prod.thumbnail} - CODE: ${prod.code} - STOCK: ${prod.stock} - STATUS: ${prod.status} - CATEGORY:${prod.category} </p>`;
     })
     .join("");
   productos.innerHTML = productoRender;

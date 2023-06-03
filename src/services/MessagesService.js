@@ -1,6 +1,9 @@
 import MessagesDao from "../daos/mongodb/MessagesDao.js";
+import MessageManager from "../daos/filesystem/MessagesDao.js";
+import { pathMessages } from '../path.js';
 
-const messagesDao = new MessagesDao();
+const messagesDao = new MessagesDao ();
+//const messagesDao = new MessageManager (pathMessages);
 
 export const getAllService = async () => {
   try {
